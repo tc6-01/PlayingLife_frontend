@@ -2,7 +2,7 @@
 <!-- 导航栏-->
   <van-nav-bar title="BeerAn匹配" left-arrow @click-left="onClickLeft">
     <template #right>
-      <van-icon name="search" size="18" />
+      <van-icon name="search" size="18" @click="onClickRight"/>
     </template>
   </van-nav-bar>
 <!--中间内容-->
@@ -20,12 +20,11 @@
 <script setup>
 import { ref } from 'vue';
 import { showToast } from 'vant';
+import {useRouter} from "vue-router";
+const router = useRouter();
 
-import Team from "../pages/team.vue";
-import Index from "../pages/index.vue";
-
-const onClickLeft = () =>console.log("test");
-
+const onClickLeft = () =>router.push("/");
+const onClickRight = () =>router.push("/search");
 const onChange = (index) => showToast(`页面切换 ${index}`);
 </script>
 
