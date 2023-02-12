@@ -1,10 +1,35 @@
 <template>
-  <h1>个人中心</h1>
+  <van-cell title="昵称" is-link to="/user/edit"/>
+  <van-cell title="账号" is-link to="/user/edit"/>
+  <van-cell title="头像" is-link to="/user/edit">
+    <van-image
+        round
+        width="30"
+        height="30"
+        src="https://fastly.jsdelivr.net/npm/@vant/assets/cat.jpeg"
+    />
+
+  </van-cell>
+  <van-cell title="性别" is-link to="/user/edit"/>
+  <van-cell title="电话" is-link to="/user/edit"/>
+  <van-cell title="邮箱" is-link to="/user/edit"/>
+  <van-cell title="星球账号" is-link to="/user/edit" :value="user.planetCode"/>
+  <van-cell title="邮箱" is-link to="/user/edit" :value="user.createTime.toLocaleString()"/>
+
 </template>
 
-<script>
-export default {
-  name: "team"
+
+<script setup>
+const user = {
+  id: 1,
+  username: 'dsdsds',
+  _account: 'yupisds',
+  avatar_url: 'http:baidu.com',
+  gender: '1',
+  phone: '212121212121',
+  email: '212121212.com',
+  planetCode: '1111',
+  createTime: new Date(),
 }
 </script>
 
