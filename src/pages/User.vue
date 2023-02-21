@@ -22,6 +22,7 @@
 import {useRouter} from "vue-router";
 
 const router = useRouter();
+
 const user = {
   id: 1,
   username: 'dsdsds',

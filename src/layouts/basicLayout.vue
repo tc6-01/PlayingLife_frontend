@@ -18,7 +18,7 @@
   </van-tabbar>
 </template>
 
-<script setup>
+<script lang="ts" setup>
 import { ref } from 'vue';
 import { showToast } from 'vant';
 import {useRouter} from "vue-router";

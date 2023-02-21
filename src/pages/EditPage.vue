@@ -20,6 +20,7 @@
 <script setup>
 import {useRoute} from "vue-router";
 import {ref} from "vue";
+import myAxios from "../plugins/myAxios.ts";
 
 const route = useRoute();
 const query = ref(route.query);
@@ -29,10 +30,9 @@ let currentValue = query.value.currentValue
 if (editKey === '性别' ){
   currentValue = currentValue ? '男' :'女';
 }
-
-console.log(query.value)
-const onSubmit = (values) => {
-  console.log('submit', values);
+const onSubmit = async (values) => {
+  const res = await myAxios.post('api/user/update', {'id':1,[editKey]: currentValue})
+  console.log(res)
 };
 </script>
 

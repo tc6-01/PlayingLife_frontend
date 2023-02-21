@@ -10,6 +10,7 @@
     />
   </form>
   <van-divider content-position="left">已选标签</van-divider>
+<!--  TODO 部分选项只可选择一个标签-->
   <van-empty v-if="activeChildren.length===0" image-size="80" image="search" description="请选择搜索标签"/>
   <van-row justify="space-around">
     <van-col span="20">
@@ -26,11 +27,13 @@
       v-model:main-active-index="activeParentIndex"
       :items="TagList"
   />
+  <van-button type="primary" @click="doSearch">搜索</van-button>
 </template>
 
 <script setup lang="ts">
 import {ref} from 'vue';
-
+import { useRouter} from "vue-router";
+const router = useRouter();
 const selectTags = ref('');
 // 默认选中
 const activeParentIndex = ref(0);
@@ -88,7 +91,14 @@ const doClose = (tag: any) => {
     return item !== tag;
   })
 };
-
+const doSearch = () =>{
+  router.push({
+    path:'/searchResult',
+    query:{
+      tag:activeChildren.value
+    }
+  })
+}
 
 </script>
 

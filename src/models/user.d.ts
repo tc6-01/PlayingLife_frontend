@@ -8,6 +8,7 @@ export type userType = {
     avatar_url:string;
     gender:number;
     phone:string;
+    profile:string;
     email:string;
     create_time:Date;
     update_time:Date;
