@@ -45,7 +45,7 @@ const onSubmit = async (values) => {
     showToast("登录成功");
     await router.replace("/");
   }else{
-    showToast("请求失败");
+    showToast(res.description);
   }
 };
 </script>

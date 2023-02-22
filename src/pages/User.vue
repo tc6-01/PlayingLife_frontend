@@ -2,12 +2,12 @@
   <van-cell title="昵称" :value="user.username" @click="onclick('username',user.username)" is-link to="/user/edit"/>
   <van-cell title="账号" :value="user._account" @click="onclick('_account',user._account)" is-link to="/user/edit"/>
 <!--  todo 优化头像上传功能-->
-  <van-cell title="头像" :value="user.avatar_url"  >
+  <van-cell title="头像"   >
     <van-image
         round
         width="30"
         height="30"
-        src="https://fastly.jsdelivr.net/npm/@vant/assets/cat.jpeg"
+        :src="user.avatar_url"
     />
   </van-cell>
   <van-cell title="性别" :value="user.gender" @click="onclick('gender',user.gender)" is-link to="/user/edit"/>

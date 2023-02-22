@@ -1,19 +1,5 @@
 <template>
-  <van-card v-for="user in userList"
-            num="2"
-            :desc="`${user.profile}`"
-            :title='`${user._account}(${user.planetCode})`'
-            :thumb="`${user.avatar_url}`"
-  >
-    <template #tags>
-      <van-tag plain v-for="tag in user.tags" type="danger" style="margin: 10px 0 0 10px">{{ tag }}</van-tag>
-    </template>
-    <template #footer>
-      <van-button size="mini">联系我</van-button>
-    </template>
-  </van-card>
-  <van-empty image="search" v-if="!userList || userList.length < 1"  description="不存在当前标签下的用户" />
-
+<card :user-list="userList"/>
 </template>
 
 <script setup >
@@ -22,6 +8,7 @@ import qs from 'qs';
 import {useRoute} from "vue-router";
 import myAxios from "../plugins/myAxios";
 import {showToast} from "vant";
+import Card from "../components/card.vue";
 
 const route = useRoute();
 const tags= route.query.tag;
@@ -29,7 +16,7 @@ const userList = ref([])
 // 初始化自动调用，向后台发送请求
 onMounted(async () => {
   console.log(tags)
-  const userListData = await myAxios.get('/api/user/search/tags', {
+  const userListData = await myAxios.get('/user/search/tags', {
     params: {
       tagNameList: tags
     },
@@ -43,7 +30,7 @@ onMounted(async () => {
         console.log('/user/search/tags success', response);
         showToast("搜索成功");
         console.log("这是响应值",response.data);
-        return response.data?.data;
+        return response?.data;
       })
       .catch(function (error) {
         console.log('/user/search/tags error', error);

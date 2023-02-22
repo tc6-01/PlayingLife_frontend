@@ -19,11 +19,17 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue';
+import {onMounted, ref} from 'vue';
 import { showToast } from 'vant';
 import {useRouter} from "vue-router";
+import {getCurrentUser} from "../services/user";
 const router = useRouter();
-
+onMounted( async () => {
+  const currentUser = await getCurrentUser();
+  if (!currentUser) {
+    router.replace('/user/login')
+  }
+})
 const onClickLeft = () =>{
   router.back();
   console.log(router.currentRoute.value);
@@ -34,5 +40,7 @@ const onChange = (index) => showToast(`页面切换 ${index}`);
 </script>
 
 <style scoped>
-
+#context{
+  padding-bottom: 50px;
+}
 </style>
