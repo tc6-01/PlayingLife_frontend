@@ -18,22 +18,35 @@
 </template>
 
 <script setup>
-import {useRoute} from "vue-router";
-import {ref} from "vue";
+import {useRoute, useRouter} from "vue-router";
+import { ref} from "vue";
 import myAxios from "../plugins/myAxios.ts";
-
+import {getCurrentUser} from "../services/user.ts";
+import {showToast} from "vant";
+const router = useRouter();
 const route = useRoute();
 const query = ref(route.query);
 const editKey = query.value.editKey;
 let currentValue = query.value.currentValue
-
-if (editKey === '性别' ){
-  currentValue = currentValue ? '男' :'女';
-}
+// todo 优化性别展示与前端修改界面
 const onSubmit = async (values) => {
-  const res = await myAxios.post('api/user/update', {'id':1,[editKey]: currentValue})
-  console.log(res)
+  const currentUser = await getCurrentUser();
+  if (currentUser == null){
+    showToast("用户未登录")
+    return null;
+  }
+  // console.log(currentUser,"页面修改获取当前登录用户")
+  const res = await myAxios.post('/user/update', {'id':currentUser.id,[editKey]: currentValue})
+  if(res.code === 0){
+    showToast("修改成功")
+    router.replace('/user')
+  }
+  if (res.code === 40101){
+    showToast("权限不足")
+  }
 };
+
+
 </script>
 
 <style scoped>

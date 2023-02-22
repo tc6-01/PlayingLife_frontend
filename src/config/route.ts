@@ -6,6 +6,7 @@ import User from "../pages/User.vue";
 import Search from "../pages/Search.vue";
 import SearchResult from "../pages/SearchResult.vue";
 import EditPage from "../pages/EditPage.vue";
+import userLogin from "../pages/userLogin.vue";
 
 
 // 定义一些路由
@@ -17,5 +18,6 @@ const routes = [
     { path: '/search', name: '组队', component: Search },
     { path: '/searchResult', name: '搜索结果', component: SearchResult },
     { path: '/user/edit', name: '编辑页面', component: EditPage },
+    { path: '/user/login', name: '用户登录', component: userLogin },
 ]
 export default routes;

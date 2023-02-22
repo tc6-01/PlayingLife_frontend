@@ -1,7 +1,8 @@
-<template>
-  <van-cell title="昵称" @click="onclick('昵称',user.username)" is-link to="/user/edit"/>
-  <van-cell title="账号" @click="onclick('账号',user._account)" is-link to="/user/edit"/>
-  <van-cell title="头像" is-link to="/user/edit">
+<template v-if="user">
+  <van-cell title="昵称" :value="user.username" @click="onclick('username',user.username)" is-link to="/user/edit"/>
+  <van-cell title="账号" :value="user._account" @click="onclick('_account',user._account)" is-link to="/user/edit"/>
+<!--  todo 优化头像上传功能-->
+  <van-cell title="头像" :value="user.avatar_url"  >
     <van-image
         round
         width="30"
@@ -9,31 +10,30 @@
         src="https://fastly.jsdelivr.net/npm/@vant/assets/cat.jpeg"
     />
   </van-cell>
-  <van-cell title="性别" @click="onclick('性别',user.gender)" is-link to="/user/edit"/>
-  <van-cell title="电话" is-link to="/user/edit"/>
-  <van-cell title="邮箱" is-link to="/user/edit"/>
-  <van-cell title="星球账号" is-link to="/user/edit" :value="user.planetCode"/>
-  <van-cell title="邮箱" is-link to="/user/edit" :value="user.createTime.toLocaleString()"/>
+  <van-cell title="性别" :value="user.gender" @click="onclick('gender',user.gender)" is-link to="/user/edit"/>
+  <van-cell title="电话" :value="user.phone" @click="onclick('phone',user.phone)" is-link to="/user/edit"/>
+  <van-cell title="邮箱" :value="user.email" @click="onclick('email',user.email)" is-link to="/user/edit"/>
+  <van-cell title="星球账号" :value="user.planetCode"/>
+  <van-cell title="创建时间" :value="user.create_time"/>
+  <van-cell title="个人简介" :value="user.profile" @click="onclick('profile',user.profile)"/>
 
 </template>
 
 
 <script setup>
 import {useRouter} from "vue-router";
+import {onMounted, ref} from "vue";
+import {getCurrentUser} from "../services/user.ts";
 
 const router = useRouter();
 
-const user = {
-  id: 1,
-  username: 'dsdsds',
-  _account: 'yupisds',
-  avatar_url: 'http:baidu.com',
-  gender: '1',
-  phone: '212121212121',
-  email: '212121212.com',
-  planetCode: '1111',
-  createTime: new Date(),
-}
+const user = ref({
+
+})
+
+onMounted(async ()=>{
+  user.value =  await getCurrentUser();
+})
 const onclick = (editKey, currentValue)=>{
   router.push({
     path:'user/edit',
