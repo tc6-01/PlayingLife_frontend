@@ -5,7 +5,7 @@ import axios from "axios";
 // 创建axios自定义示例
 const myAxios = axios.create({
     baseURL: 'http://localhost:8080/api',
-    timeout: 10000,
+    timeout: 1000000,
 })
 // 配置axios携带cookie
 myAxios.defaults.withCredentials = true;
