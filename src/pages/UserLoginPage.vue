@@ -1,20 +1,19 @@
 <template>
-
   <van-form @submit="onSubmit">
     <van-cell-group inset>
       <van-field
           v-model="userAccount"
-          name="账号"
+          name="userAccount"
           label="账号"
           placeholder="请输入账号"
-          :rules="[{ required: true, message: '请填写账号' }]"
+          :rules="[{ required: true, message: '请填写用户名' }]"
       />
       <van-field
           v-model="userPassword"
           type="password"
-          name="密码"
+          name="userPassword"
           label="密码"
-          placeholder="密码"
+          placeholder="请输入密码"
           :rules="[{ required: true, message: '请填写密码' }]"
       />
     </van-cell-group>
@@ -24,30 +23,36 @@
       </van-button>
     </div>
   </van-form>
-
 </template>
 
-<script setup>
+<script setup lang="ts">
+import {useRoute, useRouter} from "vue-router";
 import {ref} from "vue";
-import myAxios from "../plugins/myAxios.ts";
-import {showToast} from "vant";
-import {useRouter} from "vue-router";
+import myAxios from "../plugins/myAxios";
+import {Toast} from "vant";
 
 const router = useRouter();
+const route = useRoute();
+
 const userAccount = ref('');
 const userPassword = ref('');
-const onSubmit = async (values) => {
+
+const onSubmit = async () => {
   const res = await myAxios.post('/user/login', {
-    "password": userPassword.value,
-    "userAccount": userAccount.value
+    userAccount: userAccount.value,
+    password: userPassword.value,
   })
-  if ( res.code === 0 && res.data){
-    showToast("登录成功");
-    await router.replace("/");
-  }else{
-    showToast(res.description);
+  console.log(res, '用户登录');
+  if (res.code === 0 && res.data) {
+    Toast.success('登录成功');
+    // 跳转到之前的页面
+    const redirectUrl = route.query?.redirect as string ?? '/';
+    window.location.href = redirectUrl;
+  } else {
+    Toast.fail('登录失败');
   }
 };
+
 </script>
 
 <style scoped>

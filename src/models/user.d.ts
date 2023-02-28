@@ -1,19 +1,18 @@
 /**
- * 用户类型定义
+ * 用户类别
  */
-export type userType = {
-    id:number;
-    username:string;
-    _account:string;
-    avatar_url:string;
+export type UserType = {
+    id: number;
+    username: string;
+    _account: string;
+    avatar_url?: string;
+    profile?: string;
     gender:number;
-    phone:string;
-    profile:string;
-    email:string;
-    create_time:Date;
-    update_time:Date;
-    _status:number;
-    role:number;
-    tags: string[];
-    planetCode:string;
+    phone: string;
+    email: string;
+    userStatus: number;
+    role: number;
+    planetCode: string;
+    tags: string;
+    create_time: Date;
 };

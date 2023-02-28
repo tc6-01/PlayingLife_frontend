@@ -1,46 +1,56 @@
 <template>
-<!-- 导航栏-->
-<!-- todo 标题实现动态显示 -->
-  <van-nav-bar title="BeerAn匹配" left-arrow @click-left="onClickLeft">
+  <van-nav-bar
+      :title="title"
+      left-arrow
+      @click-left="onClickLeft"
+      @click-right="onClickRight"
+  >
     <template #right>
-      <van-icon name="search" size="18" @click="onClickRight"/>
+      <van-icon name="search" size="18"/>
     </template>
   </van-nav-bar>
-<!--中间内容-->
-  <div id="context">
-  <router-view/>
+  <div id="content">
+    <router-view/>
   </div>
-<!--标签栏-->
-  <van-tabbar route @change="onChange" >
-    <van-tabbar-item icon="home-o" to="/" name="index">主页</van-tabbar-item>
-    <van-tabbar-item icon="search" to="/team" name="team">队伍</van-tabbar-item>
-    <van-tabbar-item icon="friends-o" to="/user" name="user">个人中心</van-tabbar-item>
+  <van-tabbar route @change="onChange">
+    <van-tabbar-item to="/" icon="home-o" name="index">主页</van-tabbar-item>
+    <van-tabbar-item to="/team" icon="search" name="team">队伍</van-tabbar-item>
+    <van-tabbar-item to="/user" icon="friends-o" name="user">个人</van-tabbar-item>
   </van-tabbar>
 </template>
 
-<script lang="ts" setup>
-import {onMounted, ref} from 'vue';
-import { showToast } from 'vant';
-import {useRouter} from "vue-router";
-import {getCurrentUser} from "../services/user";
-const router = useRouter();
-onMounted( async () => {
-  const currentUser = await getCurrentUser();
-  if (!currentUser) {
-    router.replace('/user/login')
-  }
-})
-const onClickLeft = () =>{
-  router.back();
-  console.log(router.currentRoute.value);
-}
+<script setup lang="ts">
+import { useRouter } from "vue-router";
+import {ref} from "vue";
+import routes from "../config/route";
 
-const onClickRight = () =>router.push("/search");
-const onChange = (index) => showToast(`页面切换 ${index}`);
+const router = useRouter();
+const DEFAULT_TITLE = '伙伴匹配';
+const title = ref(DEFAULT_TITLE);
+
+/**
+ * 根据路由切换标题
+ */
+router.beforeEach((to, from) => {
+  const toPath = to.path;
+  const route = routes.find((route) => {
+    return toPath == route.path;
+  })
+  title.value = route?.title ?? DEFAULT_TITLE;
+})
+
+const onClickLeft = () => {
+  router.back();
+};
+
+const onClickRight = () => {
+  router.push('/search')
+};
+
 </script>
 
 <style scoped>
-#context{
+#content {
   padding-bottom: 50px;
 }
 </style>

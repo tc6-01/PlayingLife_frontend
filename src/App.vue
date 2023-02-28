@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import basicLayout from "./layouts/basicLayout.vue"
+import BasicLayout from "./layouts/BasicLayout.vue";
 </script>
 
 <template>
-  <basicLayout/>
+  <BasicLayout />
 </template>
 
-<style scoped>
+<style>
 
 </style>
