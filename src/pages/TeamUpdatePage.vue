@@ -97,7 +97,8 @@ onMounted(async () => {
     addTeamData.value = res.data;
   } else {
     Toast.fail('加载队伍失败，请刷新重试');
-  }}
+  }
+}
 )
 
 // 提交

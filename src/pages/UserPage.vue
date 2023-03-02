@@ -20,6 +20,9 @@ const router = useRouter();
 
 onMounted(async () => {
   user.value = await getCurrentUser();
+  if (! user.value.username){
+    user.value.username = "无名";
+  }
 })
 
 const toEdit = (editKey: string, editName: string, currentValue: string) => {
