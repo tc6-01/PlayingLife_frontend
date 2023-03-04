@@ -5,7 +5,7 @@
     <van-cell title="头像" is-link to="/user/edit">
       <img style="height: 48px" :src="user.avatar_url"/>
     </van-cell>
-    <van-cell title="性别" is-link :value="user.gender" @click="toEdit('gender', '性别', user.gender)"/>
+    <van-cell title="性别(0表示男,1表示女)" is-link :value="user.gender" @click="toEdit('gender', '性别', user.gender)"/>
     <van-cell title="电话" is-link to="/user/edit" :value="user.phone" @click="toEdit('phone', '电话', user.phone)"/>
     <van-cell title="邮箱" is-link to="/user/edit" :value="user.email" @click="toEdit('email', '邮箱', user.email)"/>
     <van-cell title="星球编号" :value="user.planetCode"/>

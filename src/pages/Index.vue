@@ -5,7 +5,6 @@
     </template>
   </van-cell>
   <user-card-list :user-list="userList" :loading="loading"/>
-  <van-empty v-if="!userList || userList.length < 1" description="数据为空"/>
 </template>
 
 <script setup lang="ts">

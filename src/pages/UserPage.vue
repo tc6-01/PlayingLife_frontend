@@ -1,6 +1,6 @@
 <template>
   <template v-if="user">
-    <van-cell title="当前用户" :value="user?.username" />
+    <van-cell :title="user?.username" value="点击以退出登录" @click="logout"/>
     <van-cell title="修改信息" is-link to="/user/update" />
     <van-cell title="我创建的队伍" is-link to="/user/team/create" />
     <van-cell title="我加入的队伍" is-link to="/user/team/join" />
@@ -25,15 +25,13 @@ onMounted(async () => {
   }
 })
 
-const toEdit = (editKey: string, editName: string, currentValue: string) => {
-  router.push({
-    path: '/user/edit',
-    query: {
-      editKey,
-      editName,
-      currentValue,
-    }
-  })
+const logout = async ()  => {
+  const res = await myAxios.post('/user/logout');
+  if (res?.code === 0){
+    Toast.success("成功退出登录");
+  }else{
+    Toast.fail(res?.description);
+  }
 }
 </script>
 

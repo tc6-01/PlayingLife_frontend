@@ -16,12 +16,28 @@
           placeholder="请输入密码"
           :rules="[{ required: true, message: '请填写密码' }]"
       />
+      <van-field
+          v-model="checkPassword"
+          type="password"
+          name="checkPassword"
+          label="重复密码"
+          placeholder="请再次输入密码"
+          :rules="[{ required: true, message: '请再次填写密码' }]"
+      />
+
+      <van-field
+          v-model="planetCode"
+          name="planetCode"
+          label="星球编号"
+          placeholder="请输入星球编号"
+          :rules="[{ required: true, message: '请填写星球编号' }]"
+      />
     </van-cell-group>
     <div style="margin: 40px;">
       <van-button round block type="primary" native-type="submit" style="margin-bottom: 20px;">
-        登录
+        注册
       </van-button>
-      <p style="color: #969799 ; text-align: center"> 还未有账号 ,<a href="/user/register">注册</a></p>
+      <p style="color: #969799 ; text-align: center"> 已有有账号 ,<a href="/user/login">立即登录</a></p>
     </div>
   </van-form>
 </template>
@@ -38,19 +54,27 @@ const route = useRoute();
 const userAccount = ref('');
 const userPassword = ref('');
 
+const planetCode = ref('');
+const checkPassword = ref('');
+
 const onSubmit = async () => {
-  const res = await myAxios.post('/user/login', {
+  const res = await myAxios.post('/user/register', {
     userAccount: userAccount.value,
     password: userPassword.value,
+    checkPassword: checkPassword.value,
+    planetCode: planetCode.value,
   })
-  console.log(res, '用户登录');
+  console.log(res, '用户注册');
   if (res.code === 0 && res.data) {
-    Toast.success('登录成功');
+    Toast.success('注册成功,请立即登录');
     // 跳转到之前的页面
-    const redirectUrl = route.query?.redirect as string ?? '/';
-    window.location.href = redirectUrl;
+    router.replace('/user/login');
   } else {
-    Toast.fail('登录失败');
+    if (res.description) {
+      Toast.fail(res.description)
+    } else {
+      Toast.fail(res.message);
+    }
   }
 };
 

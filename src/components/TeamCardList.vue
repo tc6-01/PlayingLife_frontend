@@ -132,8 +132,10 @@ const doUpdateTeam = (id: number) => {
  * @param id
  */
 const doQuitTeam = async (id: number) => {
-  const res = await myAxios.post('/team/exitTeam', {
-    teamId: id
+  const res = await myAxios.get('/team/exitTeam', {
+    params:{
+      teamId:id,
+    }
   });
   if (res?.code === 0) {
     Toast.success('操作成功');
@@ -147,8 +149,10 @@ const doQuitTeam = async (id: number) => {
  * @param id
  */
 const doDeleteTeam = async (id: number) => {
-  const res = await myAxios.post('team/deleteTeam', {
-    id,
+  const res = await myAxios.get('team/deleteTeam', {
+    params:{
+      teamId: id,
+    }
   });
   if (res?.code === 0) {
     Toast.success('操作成功');

@@ -103,6 +103,11 @@ onMounted(async () => {
 
 // 提交
 const onSubmit = async () => {
+  console.log(addTeamData.value.status !== 2);
+  if (addTeamData.value.status !== 2){
+    addTeamData.value.password === '';
+  }
+  console.log(addTeamData.value.password)
   const postData = {
     ...addTeamData.value,
     status: Number(addTeamData.value.status)

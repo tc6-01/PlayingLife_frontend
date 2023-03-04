@@ -39,7 +39,6 @@ const onSubmit = async () => {
   }
 
   console.log(currentUser, '当前用户')
-
   const res = await myAxios.post('/user/update', {
     'id': currentUser.id,
     [editUser.value.editKey as string]: editUser.value.currentValue,

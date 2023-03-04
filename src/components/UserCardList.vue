@@ -15,6 +15,8 @@
       </template>
     </van-card>
   </van-skeleton>
+  <van-empty v-if="!props.userList|| props.userList.length < 1 && props.loading != true" description="搜索结果为空" />
+
 </template>
 
 <script setup lang="ts">
