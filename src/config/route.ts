@@ -12,6 +12,7 @@ import UserLoginPage from "../pages/UserLoginPage.vue";
 import TeamAddPage from "../pages/TeamAddPage.vue";
 import TeamUpdatePage from "../pages/TeamUpdatePage.vue";
 import UserRegisterPage from "../pages/UserRegisterPage.vue";
+import {createRouter, createWebHashHistory} from "vue-router";
 
 
 const routes = [
@@ -29,5 +30,6 @@ const routes = [
     { path: '/user/team/join', title: '加入队伍', component: UserTeamJoinPage },
     { path: '/user/team/create', title: '创建队伍', component: UserTeamCreatePage },
 ]
+
 
 export default routes;

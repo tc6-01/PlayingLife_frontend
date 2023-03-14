@@ -21,7 +21,7 @@
       <van-button round block type="primary" native-type="submit" style="margin-bottom: 20px;">
         登录
       </van-button>
-      <p style="color: #969799 ; text-align: center"> 还未有账号 ,<a href="/user/register">注册</a></p>
+      <p style="color: #969799 ; text-align: center"> 没有账号 ,<a style="color: #1989fa;" @click="userRegister">注册</a></p>
     </div>
   </van-form>
 </template>
@@ -38,6 +38,9 @@ const route = useRoute();
 const userAccount = ref('');
 const userPassword = ref('');
 
+const userRegister = ()=>{
+  router.push('/user/register')
+}
 const onSubmit = async () => {
   const res = await myAxios.post('/user/login', {
     userAccount: userAccount.value,
@@ -50,7 +53,7 @@ const onSubmit = async () => {
     const redirectUrl = route.query?.redirect as string ?? '/';
     window.location.href = redirectUrl;
   } else {
-    Toast.fail('登录失败');
+    Toast.fail(res?.description);
   }
 };
 

@@ -28,16 +28,16 @@
       <van-field
           v-model="planetCode"
           name="planetCode"
-          label="星球编号"
-          placeholder="请输入星球编号"
-          :rules="[{ required: true, message: '请填写星球编号' }]"
+          label="学号"
+          placeholder="请输入学号"
+          :rules="[{ required: true, message: '请填写学号' }]"
       />
     </van-cell-group>
     <div style="margin: 40px;">
       <van-button round block type="primary" native-type="submit" style="margin-bottom: 20px;">
         注册
       </van-button>
-      <p style="color: #969799 ; text-align: center"> 已有有账号 ,<a href="/user/login">立即登录</a></p>
+      <p style="color: #969799 ; text-align: center">已有Playing-Life账号 <a style="color: #1989fa; text-align: center" @click="router.push('/user/login')">立即登录</a></p>
     </div>
   </van-form>
 </template>

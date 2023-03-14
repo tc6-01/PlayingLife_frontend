@@ -44,14 +44,26 @@ const originTagList = [{
   ],
 },
   {
+    text: '类型',
+    children: [
+      {text: '篮球', id: '篮球'},
+      {text: '足球', id: '足球'},
+      {text: '长跑', id: '长跑'},
+      {text: '短跑', id: '短跑'},
+      {text: '羽毛球', id: '羽毛球'},
+      {text: '棒球', id: '棒球'},
+    ],
+  },
+  {
     text: '年级',
     children: [
       {text: '大一', id: '大一'},
       {text: '大二', id: '大二'},
-      {text: '大3', id: '大3'},
-      {text: '大4', id: '大4'},
-      {text: '大5', id: '大5aaaaaaa'},
-      {text: '大6', id: '大6aaaaaaa'},
+      {text: '大三', id: '大三'},
+      {text: '大四', id: '大四'},
+      {text: '研一', id: '研一'},
+      {text: '研二', id: '研二'},
+      {text: '研三', id: '研三'},
     ],
   },
 ]

@@ -1,16 +1,17 @@
 import axios, {AxiosInstance} from "axios";
-
+import {useRouter} from "vue-router";
+import {Toast} from "vant";
 const isDev = process.env.NODE_ENV === 'development';
 
 const myAxios: AxiosInstance = axios.create({
-    baseURL: isDev ? 'http://localhost:8080/api' : 'http://localhost:8080/api',
+    baseURL: isDev ? 'http://localhost:8080/api' : 'https://backend.beeran.asia/api',
 });
-
 myAxios.defaults.withCredentials = true; // 配置为true
-
+const router = useRouter();
 // Add a request interceptor
 myAxios.interceptors.request.use(function (config) {
     console.log('我要发请求啦', config)
+
     // Do something before request is sent
     return config;
 }, function (error) {
@@ -21,10 +22,8 @@ myAxios.interceptors.request.use(function (config) {
 // Add a response interceptor
 myAxios.interceptors.response.use(function (response) {
     console.log('我收到你的响应啦', response)
-    // 未登录则跳转到登录页
     if (response?.data?.code === 40100) {
-        const redirectUrl = window.location.href;
-        window.location.href = `/user/login?redirect=${redirectUrl}`;
+        Toast.loading('请登录以查看更多内容');
     }
     // Do something with response data
     return response.data;

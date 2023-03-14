@@ -1,9 +1,13 @@
 <template>
   <template v-if="user">
-    <van-cell :title="user?.username" value="点击以退出登录" @click="logout"/>
+    <van-cell title="当前用户" :value="user?.username"/>
     <van-cell title="修改信息" is-link to="/user/update" />
     <van-cell title="我创建的队伍" is-link to="/user/team/create" />
     <van-cell title="我加入的队伍" is-link to="/user/team/join" />
+    <van-button type="primary" block @click="userLogin" >退出登录</van-button>
+  </template>
+  <template v-if="user==null">
+    <van-button type="primary" block to="/user/login">用户登录</van-button>
   </template>
 </template>
 
@@ -24,7 +28,10 @@ onMounted(async () => {
     user.value.username = "无名";
   }
 })
-
+const userLogin = ()=>{
+//   添加跳转路由
+  router.push('/user/login');
+}
 const logout = async ()  => {
   const res = await myAxios.post('/user/logout');
   if (res?.code === 0){

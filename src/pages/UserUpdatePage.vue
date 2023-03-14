@@ -5,10 +5,11 @@
     <van-cell title="头像" is-link to="/user/edit">
       <img style="height: 48px" :src="user.avatar_url"/>
     </van-cell>
-    <van-cell title="性别(0表示男,1表示女)" is-link :value="user.gender" @click="toEdit('gender', '性别', user.gender)"/>
     <van-cell title="电话" is-link to="/user/edit" :value="user.phone" @click="toEdit('phone', '电话', user.phone)"/>
     <van-cell title="邮箱" is-link to="/user/edit" :value="user.email" @click="toEdit('email', '邮箱', user.email)"/>
-    <van-cell title="星球编号" :value="user.planetCode"/>
+<!--//TODO 优化TAG用户输入，提高用户体验-->
+    <van-cell title="标签" is-link to="/user/edit" :value="user.tags" @click="toEdit('tags', '标签', user.tags)"/>
+    <van-cell title="学号" :value="user.planetCode"/>
     <van-cell title="注册时间" :value="time"/>
   </template>
 </template>
