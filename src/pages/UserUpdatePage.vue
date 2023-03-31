@@ -10,6 +10,7 @@
 <!--//TODO 优化TAG用户输入，提高用户体验-->
     <van-cell title="标签" is-link to="/user/edit" :value="user.tags" @click="toEdit('tags', '标签', user.tags)"/>
     <van-cell title="学号" :value="user.planetCode"/>
+    <van-cell title="个人简介" is-link to="/user/edit" :value="user.profile" @click="toEdit('profile','个人简介',user.profile)"/>
     <van-cell title="注册时间" :value="time"/>
   </template>
 </template>
