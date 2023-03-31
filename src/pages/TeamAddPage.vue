@@ -107,7 +107,7 @@ const onSubmit = async () => {
       replace: true,
     });
   } else {
-    Toast.fail('添加失败\n'+res?.description);
+    Toast.fail('添加失败\n'+res?.message);
   }
 }
 </script>

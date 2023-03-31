@@ -6,13 +6,16 @@
     </template>
   </van-cell>
   <user-card-list :user-list="userList" :loading="loading"/>
-  <van-pagination
-      v-if="userList.length !== 0 && !isMatchMode"
-      v-model="currentPage"
-      :total-items="totalPage"
-      :show-page-size="3"
-      force-ellipses
-  />
+  <van-pagination v-model="currentPage" v-if="totalPage>1 && !isMatchMode" :page-count="totalPage" :show-page-size="5">
+    <template #prev-text>
+      <van-icon name="arrow-left" />
+    </template>
+    <template #next-text>
+      <van-icon name="arrow" />
+    </template>
+    <template #page="{ text }">{{ text }}</template>
+  </van-pagination>
+
 
 
 </template>
@@ -52,7 +55,6 @@ const loadData = async () => {
           if (response?.code!==0){
             Toast.fail(response?.description);
           }
-
           return response?.data;
         })
         .catch(function (error) {
@@ -70,8 +72,7 @@ const loadData = async () => {
     })
         .then(function (response) {
           console.log('/user/recommend succeed', response);
-          totalPage.value = response.data.pages;
-          console.log("pages  ",totalPage)
+          totalPage.value = response?.data?.pages;
           return response?.data?.records;
         })
         .catch(function (error) {

@@ -4,7 +4,7 @@
     <van-cell title="修改信息" is-link to="/user/update" />
     <van-cell title="我创建的队伍" is-link to="/user/team/create" />
     <van-cell title="我加入的队伍" is-link to="/user/team/join" />
-    <van-button type="primary" block @click="userLogin" >退出登录</van-button>
+    <van-button type="primary" block @click="logout" >退出登录</van-button>
   </template>
   <template v-if="user==null">
     <van-button type="primary" block to="/user/login">用户登录</van-button>
@@ -36,6 +36,7 @@ const logout = async ()  => {
   const res = await myAxios.post('/user/logout');
   if (res?.code === 0){
     Toast.success("成功退出登录");
+    userLogin();
   }else{
     Toast.fail(res?.description);
   }
