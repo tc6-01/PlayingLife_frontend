@@ -9,7 +9,7 @@
   <van-pagination
       v-if="userList.length !== 0 && !isMatchMode"
       v-model="currentPage"
-      :total-items="125"
+      :total-items="totalPage"
       :show-page-size="3"
       force-ellipses
   />
@@ -30,6 +30,7 @@ const userList = ref([]);
 const loading = ref(true);
 // 切换页面
 const currentPage = ref(1);
+const totalPage = ref(1);
 
 /**
  * 加载数据
@@ -48,6 +49,10 @@ const loadData = async () => {
     })
         .then(function (response) {
           console.log('/user/match succeed', response);
+          if (response?.code!==0){
+            Toast.fail(response?.description);
+          }
+
           return response?.data;
         })
         .catch(function (error) {
@@ -65,6 +70,8 @@ const loadData = async () => {
     })
         .then(function (response) {
           console.log('/user/recommend succeed', response);
+          totalPage.value = response.data.pages;
+          console.log("pages  ",totalPage)
           return response?.data?.records;
         })
         .catch(function (error) {
